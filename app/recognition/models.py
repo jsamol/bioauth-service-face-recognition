@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 
 class Sample:
@@ -15,3 +15,8 @@ class BiometricPattern:
 class MatchResult:
     def __init__(self, user_id: Optional[str] = None) -> None:
         self.user_id = user_id
+
+    def serizalize(self) -> Dict:
+        return {
+            'userId': self.user_id
+        }
