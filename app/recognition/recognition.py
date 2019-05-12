@@ -1,3 +1,4 @@
+import os
 import pickle
 import uuid
 from typing import Optional, Iterator, List
@@ -41,6 +42,7 @@ def get_encodings(samples: List[Sample], pattern_dir: str) -> List[str]:
                               filter(lambda encodings: len(encodings) > 0,
                                      [face_recognition.face_encodings(image) for image in sample_images])]
 
+    os.makedirs(pattern_dir, exist_ok=True)
     encoding_paths = []
     for index, encoding in enumerate(sample_biden_encodings):
         encoding_paths.append(f'{pattern_dir}/{uuid.uuid4().hex}.dat')
