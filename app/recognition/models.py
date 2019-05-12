@@ -28,5 +28,5 @@ class EncodingsResult:
 
     def serialize(self) -> Dict:
         return {
-            'files': self.file_paths
+            'filePaths': self.file_paths
         }
