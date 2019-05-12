@@ -5,7 +5,11 @@ face-recognition-models==0.3.0
 Flask==1.0.2
 itsdangerous==1.1.0
 Jinja2==2.10.1
+joblib==0.13.2
 MarkupSafe==1.1.1
 numpy==1.16.3
+opencv-python==4.1.0.25
 Pillow==6.0.0
+scikit-learn==0.21.0
+scipy==1.2.1
 Werkzeug==0.15.2

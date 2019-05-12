@@ -7,7 +7,7 @@ import face_recognition
 from app.recognition.exceptions import EncodingsNotFoundException
 from app.recognition.models import Sample, BiometricPattern
 
-_EPSILON = 0.7
+_epsilon = 0.7
 
 
 def test_samples(samples: List[Sample], patterns: Iterator[BiometricPattern]) -> Optional[str]:
@@ -29,7 +29,7 @@ def test_samples(samples: List[Sample], patterns: Iterator[BiometricPattern]) ->
         results = face_recognition.compare_faces(pattern_biden_encodings, sample_biden_encoding)
         positive_results = list(filter(None, results))
 
-        if len(positive_results) / len(results) > _EPSILON:
+        if len(positive_results) / len(results) > _epsilon:
             return pattern.user_id
 
     return None
