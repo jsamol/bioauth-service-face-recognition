@@ -20,3 +20,13 @@ class MatchResult:
         return {
             'userId': self.user_id
         }
+
+
+class EncodingsResult:
+    def __init__(self, file_paths: List[str]) -> None:
+        self.file_paths = file_paths
+
+    def serialize(self) -> Dict:
+        return {
+            'filePaths': self.file_paths
+        }

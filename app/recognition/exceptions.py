@@ -1,0 +1,2 @@
+class EncodingsNotFoundException(Exception):
+    pass
