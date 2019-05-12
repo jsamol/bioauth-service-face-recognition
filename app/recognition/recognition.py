@@ -1,15 +1,21 @@
-from typing import Optional, Iterator
+from typing import Optional, Iterator, List
 
 import face_recognition
 
+from app.recognition.exceptions import EncodingsNotFoundException
 from app.recognition.models import Sample, BiometricPattern
 
 _EPSILON = 0.7
 
 
-def test_sample(sample: Sample, patterns: Iterator[BiometricPattern]) -> Optional[str]:
-    sample_image = face_recognition.load_image_file(sample.file_path)
-    sample_biden_encoding = face_recognition.face_encodings(sample_image)[0]
+def test_samples(samples: List[Sample], patterns: Iterator[BiometricPattern]) -> Optional[str]:
+    sample_images = (face_recognition.load_image_file(sample.file_path) for sample in samples)
+    sample_biden_encodings = (face_recognition.face_encodings(image) for image in sample_images)
+
+    sample_biden_encoding = next((encodings for encodings in sample_biden_encodings if len(encodings) > 0), [None])[0]
+
+    if sample_biden_encoding is None:
+        raise EncodingsNotFoundException()
 
     for pattern in patterns:
         pattern_images = [face_recognition.load_image_file(file_path) for file_path in pattern.file_paths]
