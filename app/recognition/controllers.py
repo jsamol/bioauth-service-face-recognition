@@ -12,6 +12,7 @@ def recognize():
     data = json.loads(request.data)
 
     samples = [Sample(path) for path in data.get('samples')]
+    liveness_status = data.get('livenessStatus')
     patterns = (BiometricPattern(user_id, paths) for user_id, paths in data.get('patterns').items())
 
     try:
@@ -25,5 +26,6 @@ def encodings():
     data = json.loads(request.data)
 
     samples = [Sample(path) for path in data.get('samples')]
+    liveness_status = data.get('livenessStatus')
     pattern_dir = data.get('patternDir')
     return jsonify(get_encodings(samples, pattern_dir).serialize())
