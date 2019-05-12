@@ -50,7 +50,7 @@ def test_liveness(samples: List[Sample]) -> bool:
             measures[index].append(probability)
         sample_votes.append((np.mean(measures[index]) < _epsilon))
 
-    return np.mean(sample_votes) > (0.5 * len(sample_votes))
+    return np.mean(sample_votes) > 0.5
 
 
 def _detect_faces(img, face_cascade):
