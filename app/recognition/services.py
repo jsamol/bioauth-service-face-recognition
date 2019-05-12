@@ -1,6 +1,7 @@
 from typing import Iterator, List
 
 from app.recognition import recognition
+from app.recognition.liveness import test_liveness
 from app.recognition.models import Sample, BiometricPattern, MatchResult, EncodingsResult
 
 
@@ -12,3 +13,7 @@ def match_samples(samples: List[Sample], patterns: Iterator[BiometricPattern]) -
 def get_encodings(samples: List[Sample], pattern_dir: str) -> EncodingsResult:
     encoding_paths = recognition.get_encodings(samples, pattern_dir)
     return EncodingsResult(encoding_paths)
+
+
+def test_samples_liveness(samples: List[Sample]) -> bool:
+    return test_liveness(samples)
