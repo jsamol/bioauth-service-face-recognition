@@ -32,7 +32,7 @@ def test_liveness(samples: List[Sample]) -> bool:
 
         measures.append([])
 
-        for i, (x, y, width, height) in enumerate(faces):
+        for (x, y, width, height) in faces:
             roi = image[y:y + height, x:x + width]
 
             img_ycrcb = cv2.cvtColor(roi, cv2.COLOR_BGR2YCR_CB)
