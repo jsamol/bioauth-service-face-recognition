@@ -19,7 +19,7 @@ def recognize():
     patterns = (BiometricPattern(user_id, paths) for user_id, paths in data.get('patterns').items())
 
     if not liveness_status and not test_samples_liveness(samples):
-        abort(make_response(_error_liveness, 401))
+        abort(make_response(_error_liveness, 400))
 
     try:
         return match_samples(samples, patterns).to_json()
@@ -36,6 +36,6 @@ def encodings():
     pattern_dir = data.get('patternDir')
 
     if not liveness_status and not test_samples_liveness(samples):
-        abort(make_response(_error_liveness, 401))
+        abort(make_response(_error_liveness, 400))
 
     return get_encodings(samples, pattern_dir).to_json()
