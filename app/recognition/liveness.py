@@ -10,15 +10,15 @@ from sklearn.externals import joblib
 
 from app.recognition.models import Sample
 
-_liveness_classifier_path = 'app/recognition/trained_models/ycrcb_luv_extraTreesClassifier.pkl'
-_haarcascade_path = 'app/recognition/trained_models/haarcascade_frontalface_default.xml'
+LIVENESS_CLASSIFIER_PATH = 'app/recognition/trained_models/ycrcb_luv_extraTreesClassifier.pkl'
+HAARCASCADE_PATH = 'app/recognition/trained_models/haarcascade_frontalface_default.xml'
 
-_epsilon = 0.7
+EPSILON = 0.7
 
 
 def test_liveness(samples: List[Sample]) -> bool:
-    liveness_classifier = joblib.load(_liveness_classifier_path)
-    face_cascade = cv2.CascadeClassifier(_haarcascade_path)
+    liveness_classifier = joblib.load(LIVENESS_CLASSIFIER_PATH)
+    face_cascade = cv2.CascadeClassifier(HAARCASCADE_PATH)
 
     images = (cv2.imread(sample.file_path) for sample in samples)
 
@@ -48,7 +48,7 @@ def test_liveness(samples: List[Sample]) -> bool:
             probability = prediction[0][1]
 
             measures[index].append(probability)
-        sample_votes.append((np.mean(measures[index]) < _epsilon))
+        sample_votes.append((np.mean(measures[index]) < EPSILON))
 
     return np.mean(sample_votes) > 0.5
 
