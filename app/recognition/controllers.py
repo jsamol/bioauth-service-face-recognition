@@ -1,4 +1,4 @@
-from flask import Blueprint, request, json, jsonify, abort, make_response
+from flask import Blueprint, request, json, abort, make_response
 
 from app.recognition.exceptions import EncodingsNotFoundException
 from app.recognition.models import Sample, BiometricPattern
@@ -6,8 +6,8 @@ from app.recognition.services import match_samples, get_encodings, test_samples_
 
 api_recognition = Blueprint('recognition', __name__)
 
-_error_liveness = 'Samples did not pass the liveness test.'
-_error_encodings_not_found = 'Could not detect faces in given samples.'
+ERROR_LIVENESS = 'Samples did not pass the liveness test.'
+ERROR_ENCODINGS_NOT_FOUND = 'Could not detect faces in given samples.'
 
 
 @api_recognition.route('', methods=['POST'])
@@ -19,12 +19,12 @@ def recognize():
     patterns = (BiometricPattern(user_id, paths) for user_id, paths in data.get('patterns').items())
 
     if not liveness_status and not test_samples_liveness(samples):
-        abort(make_response(_error_liveness, 401))
+        abort(make_response(ERROR_LIVENESS, 400))
 
     try:
-        return jsonify(match_samples(samples, patterns).serizalize())
+        return match_samples(samples, patterns).to_json()
     except EncodingsNotFoundException:
-        abort(make_response(_error_encodings_not_found, 400))
+        abort(make_response(ERROR_ENCODINGS_NOT_FOUND, 400))
 
 
 @api_recognition.route('/encodings', methods=['POST'])
@@ -36,6 +36,6 @@ def encodings():
     pattern_dir = data.get('patternDir')
 
     if not liveness_status and not test_samples_liveness(samples):
-        abort(make_response(_error_liveness, 401))
+        abort(make_response(ERROR_LIVENESS, 400))
 
-    return jsonify(get_encodings(samples, pattern_dir).serialize())
+    return get_encodings(samples, pattern_dir).to_json()
