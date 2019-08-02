@@ -1,8 +1,8 @@
 from typing import Iterator, List
 
-from app.recognition import recognition
-from app.recognition.liveness import test_liveness
-from app.recognition.models import Sample, BiometricPattern, MatchResult, EncodingsResult
+from app.face import recognition
+from app.face.liveness import test_liveness
+from app.face.models import Sample, BiometricPattern, MatchResult, EncodingsResult
 
 
 def match_samples(samples: List[Sample], patterns: Iterator[BiometricPattern]) -> MatchResult:

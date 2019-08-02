@@ -1,16 +1,16 @@
 from flask import Blueprint, request, json, abort, make_response
 
-from app.recognition.exceptions import EncodingsNotFoundException
-from app.recognition.models import Sample, BiometricPattern
-from app.recognition.services import match_samples, get_encodings, test_samples_liveness
+from app.face.exceptions import EncodingsNotFoundException
+from app.face.models import Sample, BiometricPattern
+from app.face.services import match_samples, get_encodings, test_samples_liveness
 
-api_recognition = Blueprint('face', __name__)
+api_face = Blueprint('face', __name__)
 
 ERROR_LIVENESS = 'Samples did not pass the liveness test.'
 ERROR_ENCODINGS_NOT_FOUND = 'Could not detect faces in given samples.'
 
 
-@api_recognition.route('/identification', methods=['POST'])
+@api_face.route('/identification', methods=['POST'])
 def identify():
     data = json.loads(request.data)
 
@@ -27,7 +27,7 @@ def identify():
         abort(make_response(ERROR_ENCODINGS_NOT_FOUND, 400))
 
 
-@api_recognition.route('/encodings', methods=['POST'])
+@api_face.route('/encodings', methods=['POST'])
 def get_encodings():
     data = json.loads(request.data)
 
