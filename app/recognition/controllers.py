@@ -4,14 +4,14 @@ from app.recognition.exceptions import EncodingsNotFoundException
 from app.recognition.models import Sample, BiometricPattern
 from app.recognition.services import match_samples, get_encodings, test_samples_liveness
 
-api_recognition = Blueprint('recognition', __name__)
+api_recognition = Blueprint('face', __name__)
 
 ERROR_LIVENESS = 'Samples did not pass the liveness test.'
 ERROR_ENCODINGS_NOT_FOUND = 'Could not detect faces in given samples.'
 
 
-@api_recognition.route('', methods=['POST'])
-def recognize():
+@api_recognition.route('/identification', methods=['POST'])
+def identify():
     data = json.loads(request.data)
 
     samples = [Sample(path) for path in data.get('samples')]
@@ -28,7 +28,7 @@ def recognize():
 
 
 @api_recognition.route('/encodings', methods=['POST'])
-def encodings():
+def get_encodings():
     data = json.loads(request.data)
 
     samples = [Sample(path) for path in data.get('samples')]
