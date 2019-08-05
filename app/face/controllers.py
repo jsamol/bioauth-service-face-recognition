@@ -2,7 +2,7 @@ from flask import Blueprint, request, json, abort, make_response
 
 from app.face.exceptions import EncodingsNotFoundException
 from app.face.models import Sample, BiometricPattern
-from app.face.services import match_samples, get_encodings, test_samples_liveness
+from app.face.services import match_samples, get_and_save_encodings, test_samples_liveness
 
 api_face = Blueprint('face', __name__)
 
@@ -38,4 +38,4 @@ def get_encodings():
     if not liveness_status and not test_samples_liveness(samples):
         abort(make_response(ERROR_LIVENESS, 400))
 
-    return get_encodings(samples, pattern_dir).to_json()
+    return get_and_save_encodings(samples, pattern_dir).to_json()

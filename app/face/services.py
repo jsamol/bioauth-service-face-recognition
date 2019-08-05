@@ -10,8 +10,8 @@ def match_samples(samples: List[Sample], patterns: Iterator[BiometricPattern]) -
     return MatchResult(matched_user_id)
 
 
-def get_encodings(samples: List[Sample], pattern_dir: str) -> EncodingsResult:
-    encoding_paths = recognition.get_encodings(samples, pattern_dir)
+def get_and_save_encodings(samples: List[Sample], pattern_dir: str) -> EncodingsResult:
+    encoding_paths = recognition.get_and_save_encodings(samples, pattern_dir)
     return EncodingsResult(encoding_paths)
 
 

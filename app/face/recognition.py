@@ -36,7 +36,7 @@ def test_samples(samples: List[Sample], patterns: Iterator[BiometricPattern]) ->
     return None
 
 
-def get_encodings(samples: List[Sample], pattern_dir: str) -> List[str]:
+def get_and_save_encodings(samples: List[Sample], pattern_dir: str) -> List[str]:
     sample_images = [face_recognition.load_image_file(sample.file_path) for sample in samples]
     sample_biden_encodings = [encodings[0] for encodings in
                               filter(lambda encodings: len(encodings) > 0,
