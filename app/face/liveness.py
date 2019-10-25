@@ -8,10 +8,10 @@ import cv2
 import numpy as np
 from sklearn.externals import joblib
 
-from app.recognition.models import Sample
+from app.face.models import Sample
 
-LIVENESS_CLASSIFIER_PATH = 'app/recognition/trained_models/ycrcb_luv_extraTreesClassifier.pkl'
-HAARCASCADE_PATH = 'app/recognition/trained_models/haarcascade_frontalface_default.xml'
+LIVENESS_CLASSIFIER_PATH = 'app/face/trained_models/ycrcb_luv_extraTreesClassifier.pkl'
+HAARCASCADE_PATH = 'app/face/trained_models/haarcascade_frontalface_default.xml'
 
 EPSILON = 0.7
 
